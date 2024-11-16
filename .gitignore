@@ -1,0 +1,19 @@
+# Python
+__pycache__/
+*.py[cod]
+
+# Django
+*.log
+db.sqlite3
+db.sqlite3-journal
+
+# Virtual Environment
+.venv/
+myenv/
+
+# IDE specific files
+.idea/
+.vscode/
+
+# System Files
+.DS_Store
