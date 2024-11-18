@@ -1,5 +1,10 @@
 <a href="/">
     <h1>Logo</h1>
 </a>
+<form>
+    <input type="text" placeholder="Search" name="q" oninput="showResults(this.value)" />
+    <button type="submit">Search</button>
+</form>
 
-<hr>
+<a href="{% url 'login' %}">Login</a>
+<hr />
