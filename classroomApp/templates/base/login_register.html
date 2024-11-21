@@ -119,6 +119,7 @@
         <form method="post" action="">
             {% csrf_token %}
             
+<<<<<<< HEAD
             <!-- <label for="register-username">Username</label>
             <input type="text" id="register-username" name="username" placeholder="Enter your username" required class="form-input" />
 
@@ -127,6 +128,16 @@
             {{ form.as_p }}
             <input type="submit" value="Register" class="form-submit" />
 
+=======
+            <label for="register-username">Username</label>
+            <input type="text" id="register-username" name="username" placeholder="Enter your username" required class="form-input" />
+
+            <label for="register-password">Password</label>
+            <input type="password" id="register-password" name="password" placeholder="Enter password" required class="form-input" />
+
+            <input type="submit" value="Register" class="form-submit" />
+
+>>>>>>> 7026ebba8d256fffe3f4c70175b6270c262b08d5
             <p>Already have an account? <a href="{% url 'login' %}">Login</a></p>
         </form>
     </div>
