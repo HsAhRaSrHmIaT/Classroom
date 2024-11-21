@@ -1,5 +1,29 @@
 {% extends 'main.html' %}
+{% load custom_filters %}
 
 {% block content %}
-<h1>{{room.name}}</h1>
+<h1>{{ room.name }}</h1>
+<p>{{ room.description }}</p>
+
+<div class="comment-wrapper">
+    <h3>Conversation</h3>
+    <hr />
+    <!-- <div class="comments"> -->
+        {% for comment in comments %}
+        <div class="comment">
+            <p>{{ comment.content }}</p>
+            <small>@{{ comment.user }} {{ comment.created|human_readable_date }}</small>
+            <p>{{ comment.body }}</p>
+        </div>
+        {% endfor %}
+    <!-- </div> -->
+</div>
+
+<div class="comment-form">
+    <form action="" method="post">
+        {% csrf_token %}
+        <input type="text" name="content" id="content"></>
+        <button type="submit">Comment</button>
+    </form>
+</div>
 {% endblock %}

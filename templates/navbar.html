@@ -1,15 +1,90 @@
-<a href="/">
-    <h1>Logo</h1>
-</a>
-<form>
-    <input type="text" placeholder="Search" name="q" oninput="showResults(this.value)" />
-    <button type="submit">Search</button>
-</form>
-{% if user.is_authenticated %}
-    <a href="{% url 'logout' %}">Logout</a>
-{% else %}
-    <a href="{% url 'register' %}">Register</a>
-    <a href="{% url 'login' %}">Login</a>
-{% endif %}
-<!-- <a href="{% url 'login' %}">Login</a> -->
-<hr />
+
+<head>
+    <style>
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 10%;
+            background-color: #f8f9fa;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        #logo, #logo h1 span {
+            text-decoration: none;
+            color: black;
+            font-family: 'Times New Roman', Times, serif;
+        }
+
+        .search-form {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .search input {
+            padding: 5px 10px;
+            border-radius: 20px;
+            border: 1px solid #ccc;
+            outline: none;
+            transition: all 0.3s ease;
+            font-family: 'Roboto', sans-serif;
+            font-size: 16px;
+        }
+
+        .search input:focus {
+            border-color: #8405eb;
+            box-shadow: 0 0 5px rgba(132, 5, 235, 0.5);
+        }
+
+        /* .search button {
+            padding: 5px 10px;
+            border: none;
+            border-radius: 20px;
+            background-color: #8405eb;
+            color: white;
+            cursor: pointer;
+            margin-left: 10px;
+            transition: background-color 0.3s ease;
+        } */
+
+        .nav-link {
+            margin: 0 5px;
+            text-decoration: none;
+            color: grey;
+            transition: color 0.3s ease;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        .nav-link:hover {
+            color: #8405eb;
+        }
+
+        #pipe {
+            margin: 0 15px;
+            color: grey;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <a id="logo" href="/">
+            <h1><span style="font-style: italic">class</span> Room:</h1>
+        </a>
+        <form class="search-form">
+            <div class="search">
+                <input class="search-input" type="search" placeholder="Search" name="q" oninput="showResults(this.value)" aria-label="Search">
+                <!-- <button type="submit" class="search-button">Search</button> -->
+            </div>
+        </form>
+        <div class="">
+            {% if user.is_authenticated %}
+                <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+            {% else %}
+                <a class="nav-link" href="{% url 'register' %}">Register</a>
+                <span id="pipe">|</span>
+                <a class="nav-link" href="{% url 'login' %}">Login</a>
+            {% endif %}
+        </div>
+    </nav>
+</body>

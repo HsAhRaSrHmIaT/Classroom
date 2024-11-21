@@ -1,26 +1,85 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Classroom</title>
-</head>
-<body>
-    {% include 'navbar.html' %}
+    <style>
+      body {
+        font-family: "Roboto", sans-serif;
+      }
 
-    {% if messages %}
-        <ul class="messages">
-            {% for message in messages %}
-                <li>
-                    {{ message }}
-                </li>
-            {% endfor %}
-        </ul>
-    {% endif %}
+      .messages {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+        position: fixed;
+        top: 0;
+        right: 0;
+        width: 100%;
+        z-index: 1000;
+      }
 
-    {% block content %}
+      .alert-message {
+        background-color: #8405eb;
+        color: white;
+        text-align: center;
+        opacity: 1;
+        transition: opacity 1s ease-out;
+        position: absolute;
+        padding: 12px;
+        margin-bottom: 10px;
+        border-radius: 5px;
+        right: 10px;
+        top: 90px;
+        min-width: 200px;
+        max-width: 400px;
+      }
 
+      .loader {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 5px;
+        background-color: #711eb6;   
+        animation: decrease 3.1s linear forwards;
+        border-radius: 5px;
+      }
 
-    {% endblock %}
-</body>
+      @keyframes decrease {
+        from {
+            width: 100%;
+        }
+        to {
+          width: 0;
+        }
+      }
+            
+    </style>
+    <script>
+      // Function to hide alert messages after 5 seconds
+      setTimeout(function () {
+        var messages = document.querySelectorAll(".alert-message");
+        messages.forEach(function (message) {
+          message.style.opacity = "0";
+          setTimeout(function () {
+            message.style.display = "none";
+          }, 1000);
+        });
+      }, 3000); // 5000 milliseconds = 5 seconds
+    </script>
+  </head>
+  <body>
+    {% include 'navbar.html' %} {% if messages %}
+    <ul class="messages">
+      {% for message in messages %}
+      <li class="alert-message">
+        {{ message }}
+        <div class="loader"></div>
+      </li>
+      {% endfor %}
+    </ul>
+    {% endif %} {% block content %} {% endblock %}
+  </body>
 </html>
