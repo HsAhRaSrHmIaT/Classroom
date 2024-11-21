@@ -25,9 +25,10 @@ def loginPage(request):
 
         try:
             user = User.objects.get(username=username)
-        except:
+        except User.DoesNotExist:
             messages.error(request, "User does not exist")
-
+            return redirect("register")
+            
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
@@ -72,7 +73,8 @@ def home(request):
     rooms = Room.objects.filter(
             Q(topic__name__icontains=q) |
             Q(name__icontains=q) |
-            Q(description__icontains=q)
+            Q(description__icontains=q) |
+            Q(host__username__icontains=q)
         )
     topics = Topic.objects.all()
     room_count = rooms.count()
@@ -83,6 +85,7 @@ def home(request):
     }
     return render(request, "base/home.html", context)
 
+@login_required(login_url='/login')
 def room(request, pk):
     room = Room.objects.get(id=pk)
     context = {'room': room}

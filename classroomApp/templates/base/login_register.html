@@ -1,40 +1,135 @@
+<head>
+    <style>
+        .form-input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            outline: none;
+            transition: all 0.3s ease;
+            border-radius: 10px;
+            font-family: 'Roboto', sans-serif;
+            font-size: 16px;
+        }
+
+        .form-input:focus {
+            border-color: #8405eb;
+            box-shadow: 0 0 5px rgba(132, 5, 235, 0.5);
+        }
+    
+        .form-submit {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 10px;
+            background-color: #8405eb;
+            color: white;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+    
+        .form-submit:hover {
+            background-color: #6d03c2;
+            transition: all 0.5s ease;
+        }
+    
+        .form-submit:active {
+            background-color: #8405eb;
+        }
+    
+        .form-submit:focus {
+            outline: none;
+        }
+    
+        .form-submit:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+    
+        .form-submit:disabled:hover {
+            background-color: #ccc;
+        }
+    
+        .form-submit:disabled:active {
+            background-color: #ccc;
+        }
+    
+        .form-submit:disabled:focus {
+            outline: none;
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: auto;
+            width: 400px;
+            margin: 50px auto;
+            border: #8405eb 1px solid;
+            border-radius: 10px;
+            padding: 20px;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        p {
+            text-align: center;
+            margin-top: 5px;
+        }
+
+        a {
+            color: #8405eb;
+            text-decoration: none;
+        }
+        a:hover{
+            color: #6d03c2;
+            /* transition: all 0.3s ease; */
+        }
+
+        form label {
+            font-size: 16px;
+            font-weight: 500;
+            color: #8405eb;
+        }
+    </style>
+</head>
 {% extends 'main.html' %}
-
 {% block content %}
+<div class="container">
+    {% if page == 'login' %}
+    <div id="login-form"></div>
+        <form method="post" action="">
+            {% csrf_token %}
+            
+            <label for="login-username">Username</label>
+            <input type="text" id="login-username" name="username" placeholder="Enter your username" required class="form-input" />
 
-{% if page == 'login' %}
-<div>
-    <form method="post" action="">
-        {% csrf_token %}
-        
-        <label>Username</label>
-        <input type="text" name="username" placeholder="Enter your username" required />
+            <label for="login-password">Password</label>
+            <input type="password" id="login-password" name="password" placeholder="Enter password" required class="form-input" />
 
-        <label>Password</label>
-        <input type="password" name="password" placeholder="Enter password" required />
+            <input type="submit" value="Login" class="form-submit" />
 
-        <input type="submit" value="Login" />
+            <p>Don't have an account? <a href="{% url 'register' %}">Register</a></p>
+        </form>
+    </div>
 
-        <p>Don't have an account? <a href="{% url 'register' %}">Register</a></p>
-    </form>
-</div>
+    {% elif page == 'register' %}
 
-{% elif page == 'register' %}
+    <div id="register-form"></div>
+        <form method="post" action="">
+            {% csrf_token %}
+            
+            <label for="register-username">Username</label>
+            <input type="text" id="register-username" name="username" placeholder="Enter your username" required class="form-input" />
 
-<div>
-    <form method="post" action="">
-        {% csrf_token %}
-        
-        <label>Username</label>
-        <input type="text" name="username" placeholder="Enter your username" required />
+            <label for="register-password">Password</label>
+            <input type="password" id="register-password" name="password" placeholder="Enter password" required class="form-input" />
 
-        <label>Password</label>
-        <input type="password" name="password" placeholder="Enter password" required />
+            <input type="submit" value="Register" class="form-submit" />
 
-        <input type="submit" value="Register" />
-
-        <p>Already have an account? <a href="{% url 'login' %}">Login</a></p>
-    </form>
+            <p>Already have an account? <a href="{% url 'login' %}">Login</a></p>
+        </form>
+    </div>
 </div>
 
 {% endif %}
