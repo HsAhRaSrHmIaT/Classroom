@@ -1,29 +1,28 @@
 {% extends 'main.html' %}
 
 {% block content %}
-
 <style>
-    .home-container {
+    .profile-container {
         display: grid;
-        grid-template-columns: 1fr 3fr 1fr;
+        grid-template-columns: 1fr 1fr 1fr;
         justify-content: space-between;
         margin: 0 5%;
     }
 
-    .home-container div {
+    .profile-container div {
         padding: 20px;
     }
-</style>
 
-<div class="home-container">
+</style>
+<div class="profile-container">
+    <h3>{{ user.username }}</h3>
+    <p>{{ user.date_joined }}</p>
+
     <div>
-       {% include 'base/topics_components.html' %}
+        {% include 'base/topics_components.html' %}
     </div>
-    
+
     <div>
-        <h5>{{ room_count }} available</h5>
-        <a href="{% url 'create-room' %}">Create Room</a>
-        <hr />
         {% include 'base/feed_components.html' %}
     </div>
 

@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect # type: ignore
 from django.contrib import messages # type: ignore
-from .models import Room, Topic
+from .models import Room, Topic, Message # type: ignore
 from .forms import RoomForm
 from django.db.models import Q # type: ignore
 from django.contrib.auth.models import User # type: ignore
@@ -81,18 +81,43 @@ def home(request):
         )
     topics = Topic.objects.all()
     room_count = rooms.count()
+
+    comments = Message.objects.filter(
+        Q(room__topic__name__icontains=q) |
+        Q(room__name__icontains=q) |
+        Q(body__icontains=q) |
+        Q(user__username__icontains=q)
+    )
+
     context = {
         'rooms': rooms,
         'topics': topics,
         'room_count': room_count,
+        'comments': comments,
     }
     return render(request, "base/home.html", context)
 
 @login_required(login_url='/login')
 def room(request, pk):
     room = Room.objects.get(id=pk)
-    comments = room.message_set.all().order_by('-created')
-    context = {'room': room, 'comments': comments}
+    comments = room.message_set.all().order_by('created')
+    participants = room.participants.all()  
+
+    if request.method == "POST":
+        message = Message.objects.create(
+            user=request.user,
+            room=room,
+            body=request.POST.get('body')
+        )
+        room.participants.add(request.user)
+        room.save()
+        return redirect("room", pk=room.id)
+        
+    context = {
+        'room': room, 
+        'comments': comments,
+        'participants': participants,
+        }
     return render(request, "base/room.html", context)
 
 @login_required(login_url='/login')
@@ -118,7 +143,7 @@ def updateRoom(request, pk):
         form = RoomForm(request.POST, instance=room)
         if form.is_valid():
             form.save()
-            return redirect("home")
+            return redirect('home')
         
     return render(request, "base/room_form.html", context={'form': form})
 
@@ -133,5 +158,31 @@ def deleteRoom(request, pk):
         room.delete()
         return redirect("home")
     return render(request, "base/delete.html", context={'room': room})
+
+@login_required(login_url='/login')
+def deleteComment(request, pk):
+    comment = Message.objects.get(id=pk)
+
+    if request.user != comment.user:
+        return HttpResponse("You are not allowed to delete this comment")
+    
+    if request.method == "POST":
+        comment.delete()
+        return redirect("home")
+    return render(request, "base/delete.html", context={'obj': comment})
+
+@login_required(login_url='/login')
+def userProfile(request, pk):
+    user = User.objects.get(id=pk)
+    rooms = user.room_set.all()
+    room_messages = user.message_set.all()
+    topic = Topic.objects.all()
+    context = {
+        'user': user, 
+        'rooms': rooms, 
+        'room_messages': room_messages,
+        'topic': topic,
+        }
+    return render(request, "base/profile.html", context)
 
 

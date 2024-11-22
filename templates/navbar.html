@@ -5,7 +5,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 0 10%;
+            padding: 0 5%;
             background-color: #f8f9fa;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
@@ -77,6 +77,11 @@
                 <!-- <button type="submit" class="search-button">Search</button> -->
             </div>
         </form>
+        <div id="profile">
+            {% if user.is_authenticated %}
+                <a class="nav-link" href="{% url 'profile' user.id %}">Profile</a>
+            {% endif %}
+        </div>
         <div class="">
             {% if user.is_authenticated %}
                 <a class="nav-link" href="{% url 'logout' %}">Logout</a>

@@ -2,29 +2,81 @@
 {% load custom_filters %}
 
 {% block content %}
-<h1>{{ room.name }}</h1>
-<p>{{ room.description }}</p>
 
-<div class="comment-wrapper">
-    <h3>Conversation</h3>
-    <hr />
-    <!-- <div class="comments"> -->
-        {% for comment in comments %}
-        <div class="comment">
-            <p>{{ comment.content }}</p>
-            <small>@{{ comment.user }} {{ comment.created|human_readable_date }}</small>
-            <p>{{ comment.body }}</p>
+<style>
+    .room-container {
+        display: grid;
+        grid-template-columns: 3fr 1fr;
+        justify-content: space-between;
+        margin: 0 5%;
+    }
+
+    .room-container div {
+        padding: 20px;
+    }
+
+    .room {
+        padding: 20px;
+    }
+
+    .comment-wrapper {
+        padding: 20px;
+    }
+
+    .comment {
+        padding: 20px;
+    }
+
+    .comment-form {
+        padding: 20px;
+    }
+
+    .participants {
+        padding: 20px;
+    }
+</style>
+
+<div class="room-container">
+
+    <div class="room">
+        <h1>{{ room.name }}</h1>
+        
+        <p>{{ room.description }}</p>
+
+        <div class="comment-wrapper">
+            <h3>Conversation</h3>
+            <hr />
+            <!-- <div class="comments"> -->
+                {% for comment in comments %}
+                <div class="comment">
+                    {% if user == comment.user %}
+                    <a href="{% url 'delete-comment' comment.id %}">Delete</a>
+                    {% endif %}
+                    <p>{{ comment.content }}</p>
+                    <small>@{{ comment.user }} {{ comment.created|human_readable_date }}</small>
+                    <p>{{ comment.body }}</p>
+                    <hr />
+                </div>
+                {% endfor %}
+            <!-- </div> -->
         </div>
-        {% endfor %}
-    <!-- </div> -->
-</div>
 
-<div class="comment-form">
-    <form action="" method="post">
-        {% csrf_token %}
-        <input type="text" name="content" id="content"></>
-        <button type="submit">Comment</button>
-    </form>
+        {% if user.is_authenticated %}
+            <div class="comment-form">
+                <form action="" method="post">
+                    {% csrf_token %}
+                    <input type="text" name="body" id="content" placeholder="Write your message here..." />
+                </form>
+            </div>
+        {% endif %}
+    </div>
+
+    <div class="participants">
+        <h3>Participants</h3>
+        {% for participant in participants %}
+            <p>@{{ participant.username }}</p>
+        {% endfor %}
+        <hr />
+    </div>
 </div>
-<h1 style="font-family: 'Roboto', sans-serif;">{{room.name}}</h1>
 {% endblock %}

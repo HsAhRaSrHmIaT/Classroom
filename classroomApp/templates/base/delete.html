@@ -68,10 +68,24 @@
 
 {% block content %}
 <div class="container">
-    <h1 id="delete-room">Delete Room</h1>
+    <h1 id="delete-room">
+        Delete
+        {% if room %}
+        Room
+        {% else %}
+        Comment
+        {% endif %}
+    </h1>
     <form method="post" action="">
         {% csrf_token %}
-        <p>Are you sure you want to delete this room?</p>
+        <p>
+            Are you sure you want to delete this
+            {% if room %}
+            room?
+            {% else %}
+            comment?
+            {% endif %}
+        </p>
         <div class="submit-buttons">
         <button><a href="{{ request.META.HTTP_REFERER }}">Go Back</a></button>
         <input type="submit" value="Confirm" />

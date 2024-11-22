@@ -1,0 +1,14 @@
+{% load custom_filters %}
+<h3>Recent Activity</h3>
+<hr />
+{% for comment in comments %}
+    <div>
+        <small>@{{ comment.user.username }} {{ comment.created|human_readable_date }}</small>
+        <small>replied in "{{ comment.room }}"</small>
+        <p>{{ comment.body }}</p>
+        {% if user == comment.user %}
+        <a href="{% url 'delete-comment' comment.id %}">Delete</a>
+        {% endif %}
+        <hr />
+    </div>
+{% endfor %}
