@@ -122,6 +122,7 @@ def room(request, pk):
 
 @login_required(login_url='/login')
 def createRoom(request):
+    page = 'create-room'
     form = RoomForm()
     if request.method == "POST":
         form = RoomForm(request.POST)
@@ -131,10 +132,11 @@ def createRoom(request):
             room.save()
             return redirect("home")
         
-    return render(request, "base/room_form.html", context={'form': form})
+    return render(request, "base/room_form.html", context={'form': form, 'page': page})
 
 @login_required(login_url='/login')
 def updateRoom(request, pk):
+    page = 'update-room'
     room = Room.objects.get(id=pk)
     form = RoomForm(instance=room)
 
@@ -147,7 +149,7 @@ def updateRoom(request, pk):
             form.save()
             return redirect('home')
         
-    return render(request, "base/room_form.html", context={'form': form})
+    return render(request, "base/room_form.html", context={'form': form, 'page': page})
 
 @login_required(login_url='/login')
 def deleteRoom(request, pk):
