@@ -1,33 +1,49 @@
 {% extends 'main.html' %}
+{% load static %}
 
 {% block content %}
-<style>
-    .profile-container {
-        display: grid;
-        grid-template-columns: 1fr 1fr 1fr;
-        justify-content: space-between;
-        margin: 0 5%;
-    }
+{% block css %}
+<link rel="stylesheet" href="{% static 'styles/profile.css' %}" />
+{% endblock %}
 
-    .profile-container div {
-        padding: 20px;
-    }
+<div class="container py-4">
+    <div class="row">
+        <!-- Profile Header -->
+        <div class="col-12 mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="card-title mb-2">{{ user.username }}</h3>
+                    <p class="text-muted">Member since: {{ user.date_joined|date:"F d, Y" }}</p>
+                </div>
+            </div>
+        </div>
 
-</style>
-<div class="profile-container">
-    <h3>{{ user.username }}</h3>
-    <p>{{ user.date_joined }}</p>
+        <!-- Sidebar with Topics -->
+        <div class="col-md-3 mb-4">
+            <div class="card h-100">
+                <div class="card-body">
+                    {% include 'base/topics_components.html' %}
+                </div>
+            </div>
+        </div>
 
-    <div>
-        {% include 'base/topics_components.html' %}
-    </div>
+        <!-- Main Content -->
+        <div class="col-md-6 mb-4">
+            <div class="card h-100">
+                <div class="card-body">
+                    {% include 'base/feed_components.html' %}
+                </div>
+            </div>
+        </div>
 
-    <div>
-        {% include 'base/feed_components.html' %}
-    </div>
-
-    <div>
-        {% include 'base/activity_components.html' %}
+        <!-- Activity Sidebar -->
+        <div class="col-md-3 mb-4">
+            <div class="card h-100">
+                <div class="card-body">
+                    {% include 'base/activity_components.html' %}
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 {% endblock %}

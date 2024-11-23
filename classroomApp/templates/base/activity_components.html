@@ -1,14 +1,53 @@
+<!-- activity_component.html -->
+{% load static %}
 {% load custom_filters %}
-<h3>Recent Activity</h3>
-<hr />
-{% for comment in comments %}
-    <div>
-        <small>@{{ comment.user.username }} {{ comment.created|human_readable_date }}</small>
-        <small>replied in "{{ comment.room }}"</small>
-        <p>{{ comment.body }}</p>
-        {% if user == comment.user %}
-        <a href="{% url 'delete-comment' comment.id %}">Delete</a>
-        {% endif %}
-        <hr />
+<link rel="stylesheet" href="{% static 'styles/activity_components.css' %}">
+<div class="card activity-card">
+    <div class="card-header bg-white">
+        <h3 class="mb-0 fs-4">Recent Activity</h3>
     </div>
-{% endfor %}
+    <div class="card-body p-0">
+        {% if comments %}
+        <div class="activity-list">
+            {% for comment in comments %}
+            <div class="activity-item">
+                <div class="activity-header">
+                    <div class="d-flex align-items-center gap-2">
+                        <div class="activity-avatar">
+                            {{ comment.user.username|first|upper }}
+                        </div>
+                        <div class="activity-meta">
+                            <a href="{% url 'profile' comment.user.id %}" class="user-link">
+                                @{{ comment.user.username }}
+                            </a>
+                            <span class="activity-time">
+                                {{ comment.created|human_readable_date }}
+                            </span>
+                        </div>
+                    </div>
+                    <div class="activity-room">
+                        replied in "{{ comment.room }}"
+                    </div>
+                </div>
+                
+                <div class="activity-content">
+                    {{ comment.body }}
+                </div>
+
+                {% if user == comment.user %}
+                <div class="activity-actions">
+                    <a href="{% url 'delete-comment' comment.id %}" class="btn btn-link text-danger p-0">
+                        <small>Delete</small>
+                    </a>
+                </div>
+                {% endif %}
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="text-center py-4 text-muted">
+            <p class="mb-0">No recent activity</p>
+        </div>
+        {% endif %}
+    </div>
+</div>

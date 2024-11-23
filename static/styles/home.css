@@ -1,0 +1,19 @@
+body {
+    padding-top: 0;
+}
+
+/* Add specific styles for home page */
+.home-container {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+}
+    
+.browse-topics, .activity {
+    background-color: #f8f9fa;
+    padding: 1rem;
+    border-radius: 0.25rem;
+}
+    
+.create-room {
+    padding: 1rem;
+}

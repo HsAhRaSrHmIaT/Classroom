@@ -1,0 +1,13 @@
+.message-content {
+    max-width: 80%;
+}
+
+.chat-messages {
+    display: flex;
+    flex-direction: column;
+}
+
+.message-meta {
+    font-size: 0.8rem;
+    margin-top: 0.25rem;
+}

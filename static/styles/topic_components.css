@@ -1,0 +1,58 @@
+.card {
+    border-radius: 0.5rem;
+    border: 1px solid rgba(0, 0, 0, 0.125);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.card-header {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+    padding: 1rem;
+}
+
+.list-group-item {
+    padding: 0.75rem 1rem;
+    border-left: none;
+    border-right: none;
+    transition: all 0.2s ease;
+}
+
+.list-group-item:first-child {
+    border-top: none;
+}
+
+.list-group-item:last-child {
+    border-bottom: none;
+}
+
+.list-group-item:hover {
+    background-color: #f8f9fa;
+    text-decoration: none;
+}
+
+.list-group-item.active {
+    background-color: #e9ecef;
+    border-color: #dee2e6;
+    color: #000;
+}
+
+.badge {
+    font-weight: 500;
+    font-size: 0.875rem;
+}
+
+.badge.bg-light {
+    background-color: #f8f9fa !important;
+    border: 1px solid #dee2e6;
+}
+
+/* Ensure consistent font sizing */
+.fs-4 {
+    font-size: 1.25rem !important;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .card {
+        margin-bottom: 1rem;
+    }
+}

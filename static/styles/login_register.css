@@ -1,0 +1,83 @@
+    .login-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+
+    .login-container > form {
+        display: flex;
+        flex-direction: column;
+        width: 300px;
+        padding: 20px;
+        border: 1px solid #8405eb;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(132, 5, 235, 0.5);
+    }
+
+    .form-input {
+        padding: 10px;
+        margin: 5px 0;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        outline: none;
+        transition: all 0.3s ease;
+        font-family: 'Roboto', sans-serif;
+        font-size: 16px;
+    }
+
+    .form-input:focus {
+        border-color: #8405eb;
+        box-shadow: 0 0 5px rgba(132, 5, 235, 0.5);
+    }
+
+    .form-submit {
+        padding: 10px;
+        margin: 5px 0;
+        border: none;
+        border-radius: 10px;
+        background-color: #8405eb;
+        color: white;
+        cursor: pointer;
+    }
+
+    .form-submit:hover {
+        background-color: #6d03c2;
+        transition: all 0.5s ease;
+    }
+
+    .form-submit:active {
+        background-color: #8405eb;
+    }
+
+    .form-submit:disabled {
+        background-color: #ccc;
+        cursor: not-allowed;
+    }
+
+    .form-submit:disabled:hover {
+        background-color: #ccc;
+    }
+
+    .form-submit:disabled:active {
+        background-color: #ccc;
+    }
+
+    .form-submit:disabled:focus {
+        outline: none;
+    }
+
+    a {
+        color: #8405eb;
+        text-decoration: none;
+    }
+
+    a:hover {
+        text-decoration: none;
+    }
+
+    form label {
+        font-size: 16px;
+        font-weight: 500;
+        color: #8405eb;
+    }

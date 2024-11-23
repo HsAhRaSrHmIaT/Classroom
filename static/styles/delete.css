@@ -1,0 +1,70 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 50px;
+    font-family: 'Roboto', sans-serif;
+}
+
+form p {
+    margin-top: 10px;
+    font-size: 20px;
+
+}
+
+form input[type="submit"] {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 10px;
+    background-color: #8405eb;
+    color: white;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: background-color 0.3s ease;
+    font-family: 'Roboto', sans-serif;
+}
+
+form input[type="submit"]:hover {
+    background-color: #6d03c2;
+}
+
+form input[type="submit"]:active {
+    background-color: #8405eb;
+}
+
+form button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 10px;
+    background-color: #8405eb;
+    color: white;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: background-color 0.3s ease;
+    font-family: 'Roboto', sans-serif;
+}
+
+form button:hover {
+    background-color: #6d03c2;
+}
+
+form button:active {
+    background-color: #8405eb;
+}
+
+a {
+    color: white;
+    text-decoration: none;
+}
+
+a:hover {
+    color: white;
+}
+
+.submit-buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}

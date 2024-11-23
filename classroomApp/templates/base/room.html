@@ -1,82 +1,97 @@
 {% extends 'main.html' %}
 {% load custom_filters %}
+{% load static %}
 
 {% block content %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'styles/room.css' %}" type="text/css"/>
+{% endblock %}
 
-<style>
-    .room-container {
-        display: grid;
-        grid-template-columns: 3fr 1fr;
-        justify-content: space-between;
-        margin: 0 5%;
-    }
-
-    .room-container div {
-        padding: 20px;
-    }
-
-    .room {
-        padding: 20px;
-    }
-
-    .comment-wrapper {
-        padding: 20px;
-    }
-
-    .comment {
-        padding: 20px;
-    }
-
-    .comment-form {
-        padding: 20px;
-    }
-
-    .participants {
-        padding: 20px;
-    }
-</style>
-
-<div class="room-container">
-
-    <div class="room">
-        <h1>{{ room.name }}</h1>
-        
-        <p>{{ room.description }}</p>
-
-        <div class="comment-wrapper">
-            <h3>Conversation</h3>
-            <hr />
-            <!-- <div class="comments"> -->
-                {% for comment in comments %}
-                <div class="comment">
-                    {% if user == comment.user %}
-                    <a href="{% url 'delete-comment' comment.id %}">Delete</a>
-                    {% endif %}
-                    <p>{{ comment.content }}</p>
-                    <small>@{{ comment.user }} {{ comment.created|human_readable_date }}</small>
-                    <p>{{ comment.body }}</p>
-                    <hr />
+<div class="container-fluid py-4">
+    <div class="row">
+        <!-- Main Chat Area -->
+        <div class="col-md-9">
+            <div class="card shadow-sm">
+                <!-- Room Header -->
+                <div class="card-header bg-light">
+                    <h2 class="card-title mb-0">{{ room.name }}</h2>
+                    <p class="text-muted mb-0">{{ room.description }}</p>
                 </div>
-                {% endfor %}
-            <!-- </div> -->
+
+                <!-- Chat Messages -->
+                <div class="card-body" style="height: 70vh; overflow-y: auto;">
+                    <div class="chat-messages">
+                        {% for comment in comments %}
+                        <div class="mb-3">
+                            <div class="d-flex justify-content-between align-items-start">
+                                <div class="message-content {% if user == comment.user %}ms-auto{% endif %}">
+                                    <div class="card {% if user == comment.user %}bg-primary text-white{% else %}bg-light{% endif %}" 
+                                         style="max-width: 80%;">
+                                        <div class="card-body">
+                                            <p class="card-text mb-1">{{ comment.content }}</p>
+                                            <p class="card-text mb-0">{{ comment.body }}</p>
+                                        </div>
+                                    </div>
+                                    <div class="message-meta">
+                                        <small class="text-muted">
+                                            @{{ comment.user }} · {{ comment.created|human_readable_date }}
+                                            {% if user == comment.user %}
+                                            · <a href="{% url 'delete-comment' comment.id %}" 
+                                                 class="text-danger text-decoration-none">Delete</a>
+                                            {% endif %}
+                                        </small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <!-- Message Input -->
+                {% if user.is_authenticated %}
+                <div class="card-footer bg-light">
+                    <form action="" method="post" class="message-form">
+                        {% csrf_token %}
+                        <div class="input-group">
+                            <input type="text" 
+                                   name="body" 
+                                   id="content" 
+                                   class="form-control" 
+                                   placeholder="Write your message here..." 
+                                   autocomplete="off"/>
+                            <button type="submit" class="btn btn-primary">Send</button>
+                        </div>
+                    </form>
+                </div>
+                {% endif %}
+            </div>
         </div>
 
-        {% if user.is_authenticated %}
-            <div class="comment-form">
-                <form action="" method="post">
-                    {% csrf_token %}
-                    <input type="text" name="body" id="content" placeholder="Write your message here..." />
-                </form>
+        <!-- Participants Sidebar -->
+        <div class="col-md-3">
+            <div class="card shadow-sm">
+                <div class="card-header bg-light">
+                    <h5 class="card-title mb-0">Participants</h5>
+                </div>
+                <div class="card-body">
+                    <div class="list-group list-group-flush">
+                        {% for participant in participants %}
+                        <div class="list-group-item">
+                            <div class="d-flex align-items-center">
+                                <div class="me-2">
+                                    <div class="bg-primary rounded-circle" 
+                                         style="width: 10px; height: 10px;"></div>
+                                </div>
+                                <span>@{{ participant.username }}</span>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
             </div>
-        {% endif %}
-    </div>
-
-    <div class="participants">
-        <h3>Participants</h3>
-        {% for participant in participants %}
-            <p>@{{ participant.username }}</p>
-        {% endfor %}
-        <hr />
+        </div>
     </div>
 </div>
+
 {% endblock %}
