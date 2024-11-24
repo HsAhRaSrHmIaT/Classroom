@@ -26,7 +26,7 @@
 
     {% elif page == 'register' %}
 
-    <div id="register-form"></div>
+    <div id="register-form">
         <form method="post" action="">
             {% csrf_token %}
             {{ form.as_p }}

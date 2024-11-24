@@ -1,6 +1,15 @@
 <!-- topics_component.html -->
 {% load static %}
 <link rel="stylesheet" href="{% static 'styles/topics_components.css' %}">
+<style>
+    .bg-primary {
+        background-color: #8450eb !important;
+    }
+
+    .text-primary {
+        color: #8450eb !important;
+    }
+</style>
 <div class="card">
     <div class="card-header bg-white">
         <h3 class="mb-0 fs-4">Browse Topics</h3>
@@ -14,7 +23,7 @@
             </a>
             
             {% for topic in topics %}
-            <a href="{% url 'home' %}?q={{ topic.name }}" 
+            <a href="{% url 'home' %}?q={{ topic.name|urlencode }}" 
                class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
                 {{ topic.name }}
                 <span class="badge bg-light text-dark rounded-pill">{{ topic.room_set.count }}</span>

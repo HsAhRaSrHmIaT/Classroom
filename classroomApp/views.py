@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect # type: ignore
 from django.contrib import messages # type: ignore
-from .models import Room, Topic, Message # type: ignore
-from .forms import RoomForm
+from .models import Room, Topic, Message, Profile # type: ignore
+from .forms import RoomForm, UserUpdateForm, ProfileUpdateForm # type: ignore
 from django.db.models import Q # type: ignore
 from django.contrib.auth.models import User # type: ignore
 from django.contrib.auth import authenticate, login, logout # type: ignore
@@ -178,15 +178,39 @@ def deleteComment(request, pk):
 @login_required(login_url='/login')
 def userProfile(request, pk):
     user = User.objects.get(id=pk)
+
+    profile, created = Profile.objects.get_or_create(user=user)
     rooms = user.room_set.all()
-    room_messages = user.message_set.all()
+    # room_messages = user.message_set.all()
+    room_messages = Message.objects.filter(user=user)
     topic = Topic.objects.all()
     context = {
         'user': user, 
         'rooms': rooms, 
         'room_messages': room_messages,
         'topic': topic,
+        'profile': profile,
         }
     return render(request, "base/profile.html", context)
 
-
+@login_required(login_url='/login')
+def updateUser(request):
+    profile, created = Profile.objects.get_or_create(user=request.user)
+    
+    if request.method == 'POST':
+        user_form = UserUpdateForm(request.POST, instance=request.user)
+        profile_form = ProfileUpdateForm(request.POST, request.FILES, instance=profile)
+        
+        if user_form.is_valid() and profile_form.is_valid():
+            user_form.save()
+            profile_form.save()
+            messages.success(request, 'Your profile has been updated!')
+            return redirect('profile', pk=request.user.id)
+    else:
+        user_form = UserUpdateForm(instance=request.user)
+        profile_form = ProfileUpdateForm(instance=profile)
+    
+    return render(request, 'base/update_profile.html', {
+        'user_form': user_form,
+        'profile_form': profile_form
+    })

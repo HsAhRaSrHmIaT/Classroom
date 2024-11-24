@@ -1,5 +1,7 @@
 .rooms-container {
     margin-top: 1rem;
+    overflow-y: auto;
+    max-height: 80vh;
 }
 
 .room-card {
@@ -111,4 +113,23 @@
 
 .room-card {
     animation: slideIn 0.3s ease-out forwards;
+}
+
+/* Custom scrollbar styles */
+.rooms-container::-webkit-scrollbar {
+    width: 8px;
+}
+
+.rooms-container::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+}
+
+.rooms-container::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 10px;
+}
+
+.rooms-container::-webkit-scrollbar-thumb:hover {
+    background: #555;
 }

@@ -1,0 +1,224 @@
+{% extends 'main.html' %}
+{% load static %}
+
+{% block title %}Update Profile - ClassRoom{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+            <div class="card shadow-sm">
+                <div class="card-header bg-white py-3">
+                    <h4 class="card-title mb-0">Update Profile</h4>
+                </div>
+                <div class="card-body">
+                    <form method="POST" enctype="multipart/form-data" class="update-profile-form">
+                        {% csrf_token %}
+                        
+                        <!-- Avatar Upload -->
+                        <div class="mb-4 text-center">
+                            <div class="avatar-upload">
+                                <div class="current-avatar mb-3">
+                                    {% if user.profile.avatar %}
+                                        <img src="{{ user.profile.avatar.url }}" 
+                                             alt="Current Avatar" 
+                                             class="rounded-circle" 
+                                             id="avatarPreview">
+                                    {% else %}
+                                        <img src="/static/media/avatars/default.svg" 
+                                             alt="Default Avatar" 
+                                             class="rounded-circle" 
+                                             id="avatarPreview" 
+                                             style="width: 120px; height: 120px;">
+                                    {% endif %}
+                                </div>
+                                <div class="upload-btn-wrapper">
+                                    <button class="btn btn-outline-primary btn-sm" type="button">
+                                        Change Profile Picture
+                                    </button>
+                                    <input type="file" name="avatar" id="avatarInput" accept="image/*">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Username -->
+                        <div class="mb-3">
+                            <label for="username" class="form-label">Username</label>
+                            <input type="text" 
+                                   class="form-control {% if form.username.errors %}is-invalid{% endif %}" 
+                                   id="username" 
+                                   name="username" 
+                                   value="{{ form.username.value|default:user.username }}"
+                                   required>
+                            {% if form.username.errors %}
+                                <div class="invalid-feedback">
+                                    {{ form.username.errors|join:", " }}
+                                </div>
+                            {% endif %}
+                        </div>
+
+                        <!-- Email -->
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" 
+                                   class="form-control {% if form.email.errors %}is-invalid{% endif %}" 
+                                   id="email" 
+                                   name="email" 
+                                   value="{{ form.email.value|default:user.email }}"
+                                   required>
+                            {% if form.email.errors %}
+                                <div class="invalid-feedback">
+                                    {{ form.email.errors|join:", " }}
+                                </div>
+                            {% endif %}
+                        </div>
+
+                        <!-- Bio -->
+                        <div class="mb-3">
+                            <label for="bio" class="form-label">Bio</label>
+                            <textarea class="form-control {% if form.bio.errors %}is-invalid{% endif %}" 
+                                      id="bio" 
+                                      name="bio" 
+                                      rows="4">{{ form.bio.value|default:user.profile.bio }}</textarea>
+                            {% if form.bio.errors %}
+                                <div class="invalid-feedback">
+                                    {{ form.bio.errors|join:", " }}
+                                </div>
+                            {% endif %}
+                            <div class="form-text">Tell us about yourself</div>
+                        </div>
+
+                        <!-- Social Links -->
+                        <div class="mb-4">
+                            <label class="form-label">Social Links</label>
+                            <div class="input-group mb-2">
+                                <span class="input-group-text">
+                                    <i class="bi bi-github"></i>
+                                </span>
+                                <input type="url" 
+                                       class="form-control" 
+                                       name="github" 
+                                       placeholder="GitHub URL"
+                                       value="{{ form.github.value|default:user.profile.github }}">
+                            </div>
+                            <div class="input-group mb-2">
+                                <span class="input-group-text">
+                                    <i class="bi bi-linkedin"></i>
+                                </span>
+                                <input type="url" 
+                                       class="form-control" 
+                                       name="linkedin" 
+                                       placeholder="LinkedIn URL"
+                                       value="{{ form.linkedin.value|default:user.profile.linkedin }}">
+                            </div>
+                            <div class="input-group">
+                                <span class="input-group-text">
+                                    <i class="bi bi-globe"></i>
+                                </span>
+                                <input type="url" 
+                                       class="form-control" 
+                                       name="website" 
+                                       placeholder="Personal Website"
+                                       value="{{ form.website.value|default:user.profile.website }}">
+                            </div>
+                        </div>
+
+                        <!-- Form Actions -->
+                        <div class="d-flex justify-content-end gap-2">
+                            <a href="{% url 'profile' user.id %}" class="btn btn-outline-secondary">Cancel</a>
+                            <button type="submit" class="btn btn-primary">Save Changes</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- CSS Styles -->
+{% block css %}
+<style>
+    .avatar-upload {
+        position: relative;
+        max-width: 120px;
+        margin: 0 auto;
+    }
+
+    .upload-btn-wrapper {
+        position: relative;
+        overflow: hidden;
+        display: inline-block;
+    }
+
+    .upload-btn-wrapper input[type=file] {
+        position: absolute;
+        left: 0;
+        top: 0;
+        opacity: 0;
+        cursor: pointer;
+        width: 100%;
+        height: 100%;
+    }
+
+    .form-control:focus {
+        border-color: #8405eb;
+        box-shadow: 0 0 0 0.2rem rgba(132, 5, 235, 0.25);
+    }
+
+    .input-group-text {
+        background-color: #f8f9fa;
+        border-right: none;
+    }
+
+    .input-group .form-control {
+        border-left: none;
+    }
+
+    .input-group .form-control:focus {
+        border-left: 1px solid #8405eb;
+    }
+
+    .btn-primary {
+        background-color: #8405eb;
+        border-color: #8405eb;
+    }
+
+    .btn-primary:hover {
+        background-color: #6a04bc;
+        border-color: #6a04bc;
+    }
+
+    .btn-outline-primary {
+        color: #8405eb;
+        border-color: #8405eb;
+    }
+
+    .btn-outline-primary:hover {
+        background-color: #8405eb;
+        border-color: #8405eb;
+    }
+</style>
+{% endblock %}
+
+<!-- JavaScript for Avatar Preview -->
+{% block extra_js %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const avatarInput = document.getElementById('avatarInput');
+    const avatarPreview = document.getElementById('avatarPreview');
+
+    avatarInput.addEventListener('change', function(e) {
+        if (this.files && this.files[0]) {
+            const reader = new FileReader();
+            
+            reader.onload = function(e) {
+                avatarPreview.src = e.target.result;
+            }
+            
+            reader.readAsDataURL(this.files[0]);
+        }
+    });
+});
+</script>
+{% endblock %}
+{% endblock %}

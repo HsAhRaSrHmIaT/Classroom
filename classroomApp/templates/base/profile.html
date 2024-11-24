@@ -4,6 +4,73 @@
 {% block content %}
 {% block css %}
 <link rel="stylesheet" href="{% static 'styles/profile.css' %}" />
+<style>
+    .profile-header {
+        position: relative;
+    }
+    
+    .profile-avatar {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        object-fit: cover;
+        margin-right: 1rem;
+    }
+    
+    .edit-profile {
+        position: absolute;
+        right: 1.25rem;
+        top: 1.25rem;
+    }
+    
+    .profile-info {
+        display: flex;
+        align-items: center;
+    }
+    
+    .social-links {
+        margin-top: 0.5rem;
+    }
+    
+    .social-links a {
+        color: #6c757d;
+        margin-right: 1rem;
+        text-decoration: none;
+        transition: color 0.2s;
+    }
+    
+    .social-links a:hover {
+        color: #8405eb;
+    }
+    
+    .bio-text {
+        margin-top: 1rem;
+        color: #6c757d;
+    }
+
+    .profile-avatar {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        margin-right: 1rem;
+        overflow: hidden;
+        background-color: #f8f9fa;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .profile-avatar img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .profile-avatar svg {
+        width: 100%;
+        height: 100%;
+    }
+</style>
 {% endblock %}
 
 <div class="container py-4">
@@ -11,9 +78,53 @@
         <!-- Profile Header -->
         <div class="col-12 mb-4">
             <div class="card">
-                <div class="card-body">
-                    <h3 class="card-title mb-2">{{ user.username }}</h3>
-                    <p class="text-muted">Member since: {{ user.date_joined|date:"F d, Y" }}</p>
+                <div class="card-body profile-header">
+                    <div class="profile-info">
+                        {% if user.profile.avatar %}
+                            <img src="{{ user.profile.avatar.url }}" 
+                                 alt="{{ user.username }}'s avatar" 
+                                 class="profile-avatar">
+                        {% else %}
+                            <img src="{% static 'media/avatars/default.svg' %}" 
+                                 alt="{{ user.username }}'s avatar" 
+                                 class="profile-avatar">
+                        {% endif %}
+                        <div>
+                            <h3 class="card-title mb-2">{{ user.username }}</h3>
+                            <p class="text-muted mb-0">Member since: {{ user.date_joined|date:"F d, Y" }}</p>
+                            {% if user.profile.location %}
+                                <p class="text-muted mb-0"><i class="bi bi-geo-alt"></i> {{ user.profile.location }}</p>
+                            {% endif %}
+                            
+                            <div class="social-links">
+                                {% if user.profile.github %}
+                                    <a href="{{ user.profile.github }}" target="_blank" title="GitHub">
+                                        <i class="bi bi-github"></i>
+                                    </a>
+                                {% endif %}
+                                {% if user.profile.linkedin %}
+                                    <a href="{{ user.profile.linkedin }}" target="_blank" title="LinkedIn">
+                                        <i class="bi bi-linkedin"></i>
+                                    </a>
+                                {% endif %}
+                                {% if user.profile.website %}
+                                    <a href="{{ user.profile.website }}" target="_blank" title="Personal Website">
+                                        <i class="bi bi-globe"></i>
+                                    </a>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+
+                    {% if user.profile.bio %}
+                        <p class="bio-text">{{ user.profile.bio }}</p>
+                    {% endif %}
+
+                    {% if request.user == user %}
+                        <a href="{% url 'update-user' %}" class="btn btn-outline-primary btn-sm edit-profile">
+                            <i class="bi bi-pencil"></i> Edit Profile
+                        </a>
+                    {% endif %}
                 </div>
             </div>
         </div>
