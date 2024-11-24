@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect # type: ignore
 from django.contrib import messages # type: ignore
 from .models import Room, Topic, Message, Profile # type: ignore
-from .forms import RoomForm, UserUpdateForm, ProfileUpdateForm # type: ignore
+from .forms import RoomForm, UserUpdateForm, ProfileUpdateForm, CustomUserCreationForm # type: ignore
 from django.db.models import Q, Count # type: ignore
 from django.contrib.auth.models import User # type: ignore
 from django.contrib.auth import authenticate, login, logout # type: ignore
@@ -47,13 +47,13 @@ def logoutUser(request):
 
 def registerPage(request):
     page = 'register'
-    form = UserCreationForm()
+    form = CustomUserCreationForm()  # Use the custom form
 
     if request.user.is_authenticated:
-            return redirect("home")
+        return redirect("home")
     
     if request.method == "POST":
-        form = UserCreationForm(request.POST)
+        form = CustomUserCreationForm(request.POST)
         if form.is_valid():
             user = form.save(commit=False)
             user.username = user.username.lower()
@@ -87,7 +87,7 @@ def home(request):
         Q(room__name__icontains=q) |
         Q(body__icontains=q) |
         Q(user__username__icontains=q)
-    )
+    )[:20]
 
     context = {
         'rooms': rooms,
@@ -97,6 +97,21 @@ def home(request):
     }
     return render(request, "base/home.html", context)
 
+def topics(request):
+    q = request.GET.get('q') if request.GET.get('q') != None else ''
+    
+    topics = Topic.objects.filter(
+        name__icontains=q
+    ).annotate(
+        room_count=Count('room')
+    ).order_by('-room_count')
+    
+    context = {
+        'topics': topics,
+        'topics_count': topics.count(),
+    }
+    return render(request, 'base/topics.html', context)
+
 @login_required(login_url='/login')
 def room(request, pk):
     room = Room.objects.get(id=pk)
@@ -104,7 +119,7 @@ def room(request, pk):
     participants = room.participants.all()  
 
     if request.method == "POST":
-        message = Message.objects.create(
+        Message.objects.create(
             user=request.user,
             room=room,
             body=request.POST.get('body')
@@ -172,8 +187,11 @@ def deleteComment(request, pk):
     
     if request.method == "POST":
         comment.delete()
+        return redirect("room", pk=comment.room.id)
+    if request.GET.get('from') == 'home':
+        comment.delete()
         return redirect("home")
-    return render(request, "base/delete.html", context={'obj': comment})
+    return render(request, "base/delete.html", context={'comment': comment})
 
 @login_required(login_url='/login')
 def userProfile(request, pk):
@@ -182,16 +200,17 @@ def userProfile(request, pk):
     profile = Profile.objects.get_or_create(user=user)
     rooms = user.room_set.all()
     # room_messages = user.message_set.all()
-    room_messages = Message.objects.filter(user=user).annotate(
-        room_count=Count('room', filter=Q(room__participants=user))
-    ).order_by('-room_count')
+    comments = Message.objects.filter(
+            user=user
+        ).select_related('user', 'room').order_by('-updated', '-created')[:5]
+
     topics = Topic.objects.annotate(
             room_count=Count('room', filter=Q(room__host=user))
         ).order_by('-room_count')
     context = {
         'user': user, 
         'rooms': rooms, 
-        'room_messages': room_messages,
+        'comments': comments,
         'topics': topics,
         'profile': profile,
         }

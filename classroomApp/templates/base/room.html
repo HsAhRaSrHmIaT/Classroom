@@ -120,19 +120,3 @@
 </div>
 
 {% endblock %}
-
-{% block js %}
-<script>
-    document.addEventListener('DOMContentLoaded', () => {
-        const input = document.getElementById('content');
-        const button = document.getElementById('sendButton');
-
-        input.addEventListener('input', toggleButton);
-        toggleButton();
-
-        function toggleButton() {
-            button.disabled = input.value.trim() === '';
-        }
-    });
-</script>
-{% endblock %}
