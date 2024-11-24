@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect # type: ignore
 from django.contrib import messages # type: ignore
 from .models import Room, Topic, Message, Profile # type: ignore
 from .forms import RoomForm, UserUpdateForm, ProfileUpdateForm # type: ignore
-from django.db.models import Q # type: ignore
+from django.db.models import Q, Count # type: ignore
 from django.contrib.auth.models import User # type: ignore
 from django.contrib.auth import authenticate, login, logout # type: ignore
 from django.contrib.auth.decorators import login_required # type: ignore
@@ -179,16 +179,20 @@ def deleteComment(request, pk):
 def userProfile(request, pk):
     user = User.objects.get(id=pk)
 
-    profile, created = Profile.objects.get_or_create(user=user)
+    profile = Profile.objects.get_or_create(user=user)
     rooms = user.room_set.all()
     # room_messages = user.message_set.all()
-    room_messages = Message.objects.filter(user=user)
-    topic = Topic.objects.all()
+    room_messages = Message.objects.filter(user=user).annotate(
+        room_count=Count('room', filter=Q(room__participants=user))
+    ).order_by('-room_count')
+    topics = Topic.objects.annotate(
+            room_count=Count('room', filter=Q(room__host=user))
+        ).order_by('-room_count')
     context = {
         'user': user, 
         'rooms': rooms, 
         'room_messages': room_messages,
-        'topic': topic,
+        'topics': topics,
         'profile': profile,
         }
     return render(request, "base/profile.html", context)

@@ -18,6 +18,17 @@
         background-color: #8405eb !important;
         border-color: #8405eb !important;
     }
+
+    .btn-primary:hover {
+        background-color: #6a03b6 !important;
+        border-color: #6a03b6 !important;
+    }
+
+    .message-form .input-group input:focus {
+        outline: none !important;
+        border-color: var(--primary-color);
+        box-shadow: 0 0 5px rgba(132, 5, 235, 0.5);
+    }
 </style>
 {% endblock %}
 
@@ -108,4 +119,20 @@
     </div>
 </div>
 
+{% endblock %}
+
+{% block js %}
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const input = document.getElementById('content');
+        const button = document.getElementById('sendButton');
+
+        input.addEventListener('input', toggleButton);
+        toggleButton();
+
+        function toggleButton() {
+            button.disabled = input.value.trim() === '';
+        }
+    });
+</script>
 {% endblock %}
