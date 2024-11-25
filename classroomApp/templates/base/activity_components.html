@@ -1,26 +1,13 @@
-<!-- activity_component.html -->
 {% load static %}
 {% load custom_filters %}
-<link rel="stylesheet" href="{% static 'styles/activity_components.css' %}">
-<style>
-    :root {
-        --primary-blue: #8405eb;
-    }
 
-    .activity-card .user-link {
-        color: var(--primary-blue);
-    }
+{% block content %}
 
-    .user-link:hover {
-        text-decoration: none;
-        color: #6e04c2;
-    }
+    {% block css %}
+    <link rel="stylesheet" href="{% static 'styles/activity_components.css' %}">
+    {% endblock %}
 
-    .activity-card .btn-link {
-        color: var(--primary-blue);
-    }
-</style>
-<div class="card activity-card">
+<div class="card activity-card mt-2">
     <div class="card-header bg-white">
         <h3 class="mb-0 fs-4">Recent Activity</h3>
     </div>
@@ -72,3 +59,4 @@
         {% endif %}
     </div>
 </div>
+{% endblock %}

@@ -2,97 +2,97 @@
 {% load static %}
 
 {% block content %}
-{% block css %}
-<link rel="stylesheet" href="{% static 'styles/profile.css' %}" />
-<style>
-    .profile-header {
-        position: relative;
-    }
-    
-    .profile-avatar {
-        width: 100px;
-        height: 100px;
-        border-radius: 50%;
-        object-fit: cover;
-        margin-right: 1rem;
-    }
-    
-    .edit-profile {
-        position: absolute;
-        right: 1.25rem;
-        top: 1.25rem;
-    }
-    
-    .profile-info {
-        display: flex;
-        align-items: center;
-    }
-    
-    .social-links {
-        margin-top: 0.5rem;
-    }
-    
-    .social-links a {
-        color: #6c757d;
-        margin-right: 1rem;
-        text-decoration: none;
-        transition: color 0.2s;
-    }
-    
-    .social-links a:hover {
-        color: #8405eb;
-    }
-    
-    .bio-text {
-        margin-top: 1rem;
-        color: #6c757d;
-    }
+    {% block css %}
+    <link rel="stylesheet" href="{% static 'styles/profile.css' %}" />
+    <style>
+        .profile-header {
+            position: relative;
+        }
+        
+        .profile-avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 1rem;
+        }
+        
+        .edit-profile {
+            position: absolute;
+            right: 1.25rem;
+            top: 1.25rem;
+        }
+        
+        .profile-info {
+            display: flex;
+            align-items: center;
+        }
+        
+        .social-links {
+            margin-top: 0.5rem;
+        }
+        
+        .social-links a {
+            color: #6c757d;
+            margin-right: 1rem;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        
+        .social-links a:hover {
+            color: #8405eb;
+        }
+        
+        .bio-text {
+            margin-top: 1rem;
+            color: #6c757d;
+        }
 
-    .profile-avatar {
-        width: 100px;
-        height: 100px;
-        border-radius: 50%;
-        margin-right: 1rem;
-        overflow: hidden;
-        background-color: #f8f9fa;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
+        .profile-avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            margin-right: 1rem;
+            overflow: hidden;
+            background-color: #f8f9fa;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
 
-    .profile-avatar img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-    }
+        .profile-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
 
-    .profile-avatar svg {
-        width: 100%;
-        height: 100%;
-    }
+        .profile-avatar svg {
+            width: 100%;
+            height: 100%;
+        }
 
-    .btn.btn-outline-primary.btn-sm.edit-profile {
-        border: 1px solid #8405eb;
-    }
+        .btn.btn-outline-primary.btn-sm.edit-profile {
+            border: 1px solid #8405eb;
+        }
 
-    .btn.btn-outline-primary.btn-sm.edit-profile:hover {
-        background-color: #8405eb;
-        color: white;
-    }
+        .btn.btn-outline-primary.btn-sm.edit-profile:hover {
+            background-color: #8405eb;
+            color: white;
+        }
 
-    .btn.btn-outline-primary.btn-sm.edit-profile {
-        color: #8405eb;
-    }
+        .btn.btn-outline-primary.btn-sm.edit-profile {
+            color: #8405eb;
+        }
 
-    .bi.bi-pencil {
-        color: #8405eb;
-    }
+        .bi.bi-pencil {
+            color: #8405eb;
+        }
 
-    .btn.btn-outline-primary.btn-sm.edit-profile:hover .bi.bi-pencil {
-        color: white;
-    }
-</style>
-{% endblock %}
+        .btn.btn-outline-primary.btn-sm.edit-profile:hover .bi.bi-pencil {
+            color: white;
+        }
+    </style>
+    {% endblock %}
 
 <div class="container py-4">
     <div class="row">
@@ -170,7 +170,6 @@
             </div>
         </div>
 
-        <!-- Activity Sidebar -->
         <div class="col-md-3 mb-4">
             <div class="card h-100">
                 <div class="card-body">

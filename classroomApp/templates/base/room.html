@@ -3,34 +3,34 @@
 {% load static %}
 
 {% block content %}
-{% block css %}
-<link rel="stylesheet" href="{% static 'styles/room.css' %}" type="text/css"/>
-<style>
-    .bg-primary {
-        background-color: #8405eb !important;
-    }
+    {% block css %}
+    <link rel="stylesheet" href="{% static 'styles/room.css' %}" type="text/css"/>
+    <style>
+        .bg-primary {
+            background-color: #8405eb !important;
+        }
 
-    .text-primary {
-        color: #8405eb !important;
-    }
+        .text-primary {
+            color: #8405eb !important;
+        }
 
-    .btn-primary {
-        background-color: #8405eb !important;
-        border-color: #8405eb !important;
-    }
+        .btn-primary {
+            background-color: #8405eb !important;
+            border-color: #8405eb !important;
+        }
 
-    .btn-primary:hover {
-        background-color: #6a03b6 !important;
-        border-color: #6a03b6 !important;
-    }
+        .btn-primary:hover {
+            background-color: #6a03b6 !important;
+            border-color: #6a03b6 !important;
+        }
 
-    .message-form .input-group input:focus {
-        outline: none !important;
-        border-color: var(--primary-color);
-        box-shadow: 0 0 5px rgba(132, 5, 235, 0.5);
-    }
-</style>
-{% endblock %}
+        .message-form .input-group input:focus {
+            outline: none !important;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 5px rgba(132, 5, 235, 0.5);
+        }
+    </style>
+    {% endblock %}
 
 <div class="container-fluid py-4">
     <div class="row">

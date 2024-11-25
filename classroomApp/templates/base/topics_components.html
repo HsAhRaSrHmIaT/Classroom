@@ -1,4 +1,12 @@
-<div class="card">
+{% load static %}
+
+{% block content %}
+
+    {% block css %}
+        <link rel="stylesheet" href="{% static 'styles/topic_components.css' %}">
+    {% endblock %}
+
+<div class="card mt-2">
     <div class="card-header bg-white">
         <h3 class="mb-0 fs-4">Browse Topics</h3>
     </div>
@@ -30,18 +38,4 @@
         </div>
     </div>
 </div>
-
-<style>
-    .badge.bg-primary {
-        background-color: #8405eb !important;
-    }
-    
-    .text-primary {
-        color: #8405eb !important;
-    }
-    
-    .list-group-item:hover .bi-chevron-right {
-        transform: translateX(3px);
-        transition: transform 0.2s ease-in-out;
-    }
-</style>
+{% endblock %}

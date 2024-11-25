@@ -11,11 +11,6 @@ from django.contrib.auth.forms import UserCreationForm # type: ignore
 from django.core.mail import send_mail # type: ignore
 import random
 
-# rooms = [
-#     {'id': 1, 'name': 'Room 1'},
-#     {'id': 2, 'name': 'Room 2'},
-#     {'id': 3, 'name': 'Room 3'},
-# ]
 
 def loginPage(request):
     page = 'login'
@@ -233,7 +228,6 @@ def userProfile(request, pk):
 
     profile = Profile.objects.get_or_create(user=user)
     rooms = user.room_set.all()
-    # room_messages = user.message_set.all()
     comments = Message.objects.filter(
             user=user
         ).select_related('user', 'room').order_by('-updated', '-created')[:5]

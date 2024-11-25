@@ -76,7 +76,7 @@
 }
 
 .user-link {
-    color: #007bff;
+    color: #8405eb;
     text-decoration: none;
     font-weight: 500;
     font-size: 0.875rem;
@@ -132,3 +132,20 @@
 .activity-card .btn-link {
     color: var(--primary-blue);
 }
+
+:root {
+        --primary-blue: #8405eb;
+    }
+
+    .activity-card .user-link {
+        color: var(--primary-blue);
+    }
+
+    .user-link:hover {
+        text-decoration: none;
+        color: #6e04c2;
+    }
+
+    .activity-card .btn-link {
+        color: var(--primary-blue);
+    }

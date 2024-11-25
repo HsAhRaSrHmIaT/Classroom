@@ -45,15 +45,25 @@
     border: 1px solid #dee2e6;
 }
 
-/* Ensure consistent font sizing */
 .fs-4 {
     font-size: 1.25rem !important;
 }
 
-/* Responsive adjustments */
 @media (max-width: 768px) {
     .card {
         margin-bottom: 1rem;
     }
 }
 
+.badge.bg-primary {
+    background-color: #8405eb !important;
+}
+
+.text-primary {
+    color: #8405eb !important;
+}
+
+.list-group-item:hover .bi-chevron-right {
+    transform: translateX(3px);
+    transition: transform 0.2s ease-in-out;
+}

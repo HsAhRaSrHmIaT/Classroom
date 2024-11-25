@@ -1,4 +1,4 @@
-/* Container styles */
+
 .container {
     display: flex;
     flex-direction: column;
@@ -15,13 +15,11 @@
     padding: 20px;
 }
 
-/* Form styles */
 form p {
     margin-top: 20px;
     font-size: 20px;
 }
 
-/* Button base styles */
 form input[type="submit"],
 form button {
     padding: 10px 20px;
@@ -35,19 +33,16 @@ form button {
     font-family: 'Roboto', sans-serif;
 }
 
-/* Button hover states */
 form input[type="submit"]:hover,
 form button:hover {
     background-color: #6d03c2;
 }
 
-/* Button active states */
 form input[type="submit"]:active,
 form button:active {
     background-color: #8405eb;
 }
 
-/* Link styles */
 a {
     color: white;
     text-decoration: none;
@@ -57,7 +52,6 @@ a:hover {
     color: white;
 }
 
-/* Submit buttons container */
 .submit-buttons {
     display: flex;
     justify-content: center;
@@ -66,7 +60,6 @@ a:hover {
     margin: 20px 0;
 }
 
-/* ✅ Correct syntax - Using proper class selectors */
 .btn.btn-primary.custom-button {
     padding: 10px 20px;
     border: none;
@@ -79,7 +72,6 @@ a:hover {
     font-family: 'Roboto', sans-serif;
 }
 
-/* Alternative: If you want to override all Bootstrap primary buttons */
 .btn-primary {
     background-color: #8405eb !important; /* Use !important only if necessary */
     border-color: #8405eb !important;

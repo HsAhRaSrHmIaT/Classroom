@@ -133,3 +133,139 @@
 .rooms-container::-webkit-scrollbar-thumb:hover {
     background: #555;
 }
+
+ .btn-primary {
+        background-color: #8405eb;
+        border-color: #8405eb;
+    }
+
+    .btn-primary:hover,
+    .btn-primary:focus,
+    .btn-primary:active {
+        background-color: #6a04b9;
+        border-color: #6a04b9;
+    }
+
+    .host-link {
+        color: #8405eb;
+    }
+    .host-link:hover {
+        text-decoration: none;
+        color: #6a04b9;
+    }
+    .host-link:active {
+        color: #8405eb;
+    }
+
+    .btn-primary:active {
+        background-color: #8405eb;
+    }
+
+    .room-avatar {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background-color: #6c757d;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-weight: bold;
+        font-size: 1.2rem;
+        overflow: hidden;
+    }
+
+    .room-avatar img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .host-info {
+        display: flex;
+        flex-direction: column;
+        gap: 0.25rem;
+    }
+
+    .host-link {
+        color: #8405eb;
+        text-decoration: none;
+        font-weight: 500;
+    }
+
+    .host-link:hover {
+        color: #6a04b9;
+    }
+
+    .topic-badge {
+        font-size: 0.8rem;
+        color: #6c757d;
+    }
+
+    .btn-primary {
+        background-color: #8405eb;
+        border-color: #8405eb;
+    }
+
+    .btn-primary:hover,
+    .btn-primary:focus,
+    .btn-primary:active {
+        background-color: #6a04b9;
+        border-color: #6a04b9;
+    }
+
+    .host-link {
+        color: #8405eb;
+    }
+    .host-link:hover {
+        text-decoration: none;
+        color: #6a04b9;
+    }
+    .host-link:active {
+        color: #8405eb;
+    }
+
+    .btn-primary:active {
+        background-color: #8405eb;
+    }
+
+    .room-avatar {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background-color: #6c757d;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-weight: bold;
+        font-size: 1.2rem;
+        overflow: hidden;
+    }
+
+    .room-avatar img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .host-info {
+        display: flex;
+        flex-direction: column;
+        gap: 0.25rem;
+    }
+
+    .host-link {
+        color: #8405eb;
+        text-decoration: none;
+        font-weight: 500;
+    }
+
+    .host-link:hover {
+        color: #6a04b9;
+    }
+
+    .topic-badge {
+        font-size: 0.8rem;
+        color: #6c757d;
+    }
