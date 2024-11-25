@@ -3,6 +3,8 @@ from .models import Room, Profile #type: ignore
 from django import forms #type: ignore
 from django.contrib.auth.forms import UserCreationForm #type: ignore
 from django.contrib.auth.models import User #type: ignore
+import re, random
+from django.core.exceptions import ValidationError #type: ignore
 
 class RoomForm(ModelForm):
     class Meta:
@@ -57,11 +59,14 @@ class ProfileUpdateForm(forms.ModelForm):
         }
 
 class CustomUserCreationForm(UserCreationForm):
-    email = forms.EmailField()
+    email_verification_code = forms.CharField(max_length=6, required=False, widget=forms.TextInput(attrs={
+        'class': 'form-control',
+        'placeholder': 'Enter verification code'
+    }))
     
     class Meta:
         model = User
-        fields = ['username', 'email', 'password1', 'password2']
+        fields = ['username', 'email', 'password1', 'password2', 'email_verification_code']
         
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -81,3 +86,17 @@ class CustomUserCreationForm(UserCreationForm):
             'class': 'form-control',
             'placeholder': 'Confirm your password'
         })
+
+    def clean_password1(self):
+        password = self.cleaned_data.get('password1')
+        if len(password) < 8:
+            raise ValidationError("Password must be at least 8 characters long.")
+        if not re.search(r'\d', password):
+            raise ValidationError("Password must contain at least one digit.")
+        if not re.search(r'[A-Z]', password):
+            raise ValidationError("Password must contain at least one uppercase letter.")
+        if not re.search(r'[a-z]', password):
+            raise ValidationError("Password must contain at least one lowercase letter.")
+        if not re.search(r'[!@#$%^&*(),.?":{}|<>]', password):
+            raise ValidationError("Password must contain at least one special character.")
+        return password

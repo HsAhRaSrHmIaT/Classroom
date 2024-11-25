@@ -1,54 +1,57 @@
 body {
-    font-family: 'Roboto', sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #ffffff;
-  }
+  font-family: 'Roboto', sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #ffffff;
+}
 
-  .messages {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-    position: fixed;
-    top: 0;
-    right: 0;
-    width: 100%;
-    z-index: 1000;
-  }
+.messages {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  position: fixed;
+  top: 65px;  /* Match your navbar height */
+  right: 0;
+  width: 100%;
+  z-index: 2000;  /* Higher than navbar's z-index */
+  pointer-events: none;  /* Allow clicking through the messages container */
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
 
-  .alert-message {
-    background-color: #8405eb;
-    color: white;
-    text-align: center;
-    opacity: 1;
-    transition: opacity 1s ease-out;
-    position: absolute;
-    padding: 12px;
-    margin-bottom: 10px;
-    border-radius: 5px;
-    right: 10px;
-    top: 90px;
-    min-width: 200px;
-    max-width: 400px;
-  }
+.alert-message {
+  background-color: #8405eb;
+  color: white;
+  text-align: center;
+  opacity: 1;
+  transition: opacity 0.3s ease-out;
+  padding: 12px 20px;
+  margin: 10px 20px;
+  border-radius: 5px;
+  min-width: 200px;
+  max-width: 400px;
+  position: relative;
+  pointer-events: auto;  /* Re-enable clicking for the message itself */
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
 
-  .loader {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 5px;
-    background-color: #711eb6;   
-    animation: decrease 3.1s linear forwards;
-    border-radius: 5px;
-  }
+.loader {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background-color: #711eb6;
+  animation: decrease 3s linear forwards;
+  border-radius: 0 0 5px 5px;
+}
 
-  @keyframes decrease {
-    from {
-        width: 100%;
-    }
-    to {
+@keyframes decrease {
+  from {
+      width: 100%;
+  }
+  to {
       width: 0;
-    }
   }
-        
+}

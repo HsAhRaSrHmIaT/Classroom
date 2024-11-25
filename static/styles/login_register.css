@@ -1,84 +1,143 @@
-    .login-container {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-    }
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 15px;
+    background-color: #f5f5f5;
+}
 
-    .login-container > form {
-        display: flex;
-        flex-direction: column;
-        width: 300px;
-        padding: 20px;
-        border: 1px solid #8405eb;
-        border-radius: 5px;
-        box-shadow: 0 0 10px rgba(132, 5, 235, 0.5);
-    }
+.form-wrapper {
+    width: 100%;
+    max-width: 320px;
+    padding: 20px;
+    background: white;
+    border: 1px solid #8405eb;
+    border-radius: 8px;
+    box-shadow: 0 0 15px rgba(132, 5, 235, 0.2);
+}
 
-    .form-input {
-        padding: 10px;
-        margin: 5px 0;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-        outline: none;
-        transition: all 0.3s ease;
-        font-family: 'Roboto', sans-serif;
-        font-size: 16px;
-    }
+.form-title {
+    text-align: center;
+    color: #8405eb;
+    margin-bottom: 20px;
+    font-size: 20px;
+    font-weight: 600;
+}
 
-    .form-input:focus {
-        border-color: #8405eb;
-        box-shadow: 0 0 5px rgba(132, 5, 235, 0.5);
-    }
+.form-group {
+    margin-bottom: 15px;
+    position: relative;
+}
 
-    .form-submit {
-        padding: 10px;
-        margin: 5px 0;
-        border: none;
-        border-radius: 5px;
-        background-color: #8405eb;
-        color: white;
-        cursor: pointer;
-    }
+.form-input,
+input[type="text"],
+input[type="password"],
+input[type="email"] {
+    width: 100%;
+    padding: 8px 12px;
+    margin-top: 4px;
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+    outline: none;
+    transition: all 0.3s ease;
+    font-size: 14px;
+}
 
-    .form-submit:hover {
-        background-color: #6d03c2;
-        transition: all 0.5s ease;
-    }
+.form-input:focus,
+input[type="text"]:focus,
+input[type="password"]:focus,
+input[type="email"]:focus {
+    border-color: #8405eb;
+    box-shadow: 0 0 6px rgba(132, 5, 235, 0.3);
+}
 
-    .form-submit:active {
-        background-color: #8405eb;
-    }
+.form-submit {
+    width: 100%;
+    padding: 10px;
+    margin: 15px 0;
+    border: none;
+    border-radius: 6px;
+    background-color: #8405eb;
+    color: white;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
 
-    .form-submit:disabled {
-        background-color: #ccc;
-        cursor: not-allowed;
-    }
+.form-submit:hover:not(:disabled) {
+    background-color: #6d03c2;
+    transform: translateY(-1px);
+}
 
-    .form-submit:disabled:hover {
-        background-color: #ccc;
-    }
+.form-submit:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+    transform: none;
+}
 
-    .form-submit:disabled:active {
-        background-color: #ccc;
-    }
+.form-footer {
+    text-align: center;
+    margin-top: 15px;
+    color: #666;
+    font-size: 13px;
+}
 
-    .form-submit:disabled:focus {
-        outline: none;
-    }
+label {
+    color: #333;
+    font-weight: 500;
+    font-size: 14px;
+}
 
-    a {
-        color: #8405eb;
-        text-decoration: none;
-    }
+a {
+    color: #8405eb;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
 
-    a:hover {
-        text-decoration: none;
-        color: #6d03c2;
-    }
+a:hover {
+    color: #6d03c2;
+}
 
-    form label {
-        font-size: 16px;
-        font-weight: 500;
-        color: #8405eb;
-    }
+.requirements-container {
+    margin-top: 10px;
+    padding: 10px;
+    background-color: #f8f9fa;
+    border-radius: 6px;
+    font-size: 12px;
+}
+
+.requirement {
+    margin: 6px 0;
+    color: #666;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.requirement.valid {
+    color: #8405eb;
+}
+
+.requirement.invalid {
+    color: #dc3545;
+}
+
+.icon.valid {
+    color: #8405eb;
+}
+
+.icon.invalid {
+    color: #dc3545;
+}
+
+/* New styles for verification code */
+.verification-hint {
+    display: block;
+    margin-top: 4px;
+    color: #666;
+    font-size: 12px;
+    font-style: italic;
+}

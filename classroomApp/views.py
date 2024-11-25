@@ -8,6 +8,8 @@ from django.contrib.auth import authenticate, login, logout # type: ignore
 from django.contrib.auth.decorators import login_required # type: ignore
 from django.http import HttpResponse # type: ignore
 from django.contrib.auth.forms import UserCreationForm # type: ignore
+from django.core.mail import send_mail # type: ignore
+import random
 
 # rooms = [
 #     {'id': 1, 'name': 'Room 1'},
@@ -62,14 +64,46 @@ def registerPage(request):
                 messages.error(request, "Account already exists, try logging in")
                 return redirect("login")
             else:
-                user.save()
-                messages.success(request, "Account was created successfully")
-                return redirect("login")
+                verification_code = str(random.randint(100000, 999999))
+                send_mail(
+                    'Email Verification Code',
+                    f'Your verification code is {verification_code}',
+                    'hsahrasrhmiat2.04@gmail.com',
+                    [form.cleaned_data.get('email')],
+                    fail_silently=False,
+                )
+
+                request.session['verification_code'] = verification_code
+                request.session['user_data'] = {
+                    'username': user.username,
+                    'email': user.email,
+                    'password1': form.cleaned_data.get('password1'),
+                    'password2': form.cleaned_data.get('password2'),
+                }
+                messages.success(request, "Verification successful")
+                return redirect("verify_email")
         else:
             messages.error(request, "An error occurred during registration")
 
     context = {'form': form, 'page': page}
     return render(request, "base/login_register.html", context)
+
+def verifyEmail(request):
+    if request.method == "POST":
+        verification_code = request.POST.get('email_verification_code')
+        if verification_code == request.session.get('verification_code'):
+            user_data = request.session.get('user_data')
+            user = User.objects.create_user(
+                username=user_data['username'],
+                email=user_data['email'],
+                password=user_data['password1']
+            )
+            messages.success(request, "Account was created successfully")
+            return redirect("login")
+        else:
+            messages.error(request, "Invalid verification code")
+
+    return render(request, "base/verify_email.html")
 
 def home(request):
     q = request.GET.get('q') if request.GET.get('q') != None else ''
@@ -237,3 +271,11 @@ def updateUser(request):
         'user_form': user_form,
         'profile_form': profile_form
     })
+
+@login_required(login_url='/login')
+def deleteProfile(request):
+    user = request.user
+    if request.method == "POST":
+        user.delete()
+        return redirect("/login")
+    return render(request, "base/delete.html", context={'user': user})

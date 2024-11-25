@@ -10,6 +10,8 @@
         Delete
         {% if room %}
         Room
+        {% elif user %}
+        Profile
         {% else %}
         Comment
         {% endif %}
@@ -17,11 +19,13 @@
     <form method="post" action="">
         {% csrf_token %}
         <p>
-            Are you sure you want to delete this
+            Are you sure you want to delete
             {% if room %}
-            room?
+            this room?
+            {% elif user %}
+            your profile?
             {% else %}
-            comment?
+            this comment?
             {% endif %}
         </p>
         <div class="submit-buttons">
