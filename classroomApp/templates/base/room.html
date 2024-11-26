@@ -38,7 +38,7 @@
         <div class="col-md-9">
             <div class="card shadow-sm">
                 <!-- Room Header -->
-                <div class="card-header bg-light">
+                <div class="card-header">
                     <h2 class="card-title mb-0">{{ room.name }}</h2>
                     <p class="text-muted mb-0">{{ room.description }}</p>
                 </div>
@@ -75,7 +75,7 @@
 
                 <!-- Message Input -->
                 {% if user.is_authenticated %}
-                <div class="card-footer bg-light">
+                <div class="card-footer">
                     <form action="" method="post" class="message-form">
                         {% csrf_token %}
                         <div class="input-group">
@@ -96,7 +96,7 @@
         <!-- Participants Sidebar -->
         <div class="col-md-3">
             <div class="card shadow-sm">
-                <div class="card-header bg-light">
+                <div class="card-header">
                     <h5 class="card-title mb-0">Participants</h5>
                 </div>
                 <div class="card-body">

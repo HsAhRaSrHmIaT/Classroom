@@ -215,8 +215,11 @@ def deleteComment(request, pk):
         return HttpResponse("You are not allowed to delete this comment")
     
     if request.method == "POST":
+        room_id = comment.room.id if comment.room else None
         comment.delete()
-        return redirect("room", pk=comment.room.id)
+        if room_id:
+            return redirect("room", pk=room_id)
+        return redirect("home")
     if request.GET.get('from') == 'home':
         comment.delete()
         return redirect("home")

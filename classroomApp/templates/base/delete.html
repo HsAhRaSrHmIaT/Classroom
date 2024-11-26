@@ -5,6 +5,7 @@
 
     {% block css %}
     <link rel="stylesheet" href="{% static 'styles/delete.css' %}">
+    <link rel="stylesheet" href="{% static 'styles/dark_mode.css' %}">
     {% endblock %}
 
 <div class="container">
@@ -12,10 +13,10 @@
         Delete
         {% if room %}
         Room
-        {% elif user %}
-        Profile
-        {% else %}
+        {% elif user == comment.user %}
         Comment
+        {% else %}
+        Profile
         {% endif %}
     </h1>
     <form method="post" action="">
@@ -24,10 +25,10 @@
             Are you sure you want to delete
             {% if room %}
             this room?
-            {% elif user %}
-            your profile?
-            {% else %}
+            {% elif comment.user %}
             this comment?
+            {% else %}
+            your profile?
             {% endif %}
         </p>
         <div class="submit-buttons">
