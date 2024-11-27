@@ -4,7 +4,7 @@
 
 {% block content %}
     {% block css %}
-    <link rel="stylesheet" href="{% static 'styles/room.css' %}" type="text/css"/>
+    <!-- <link rel="stylesheet" href="{% static 'styles/room.css' %}" type="text/css"/> -->
     <style>
         .bg-primary {
             background-color: #8405eb !important;
@@ -29,6 +29,21 @@
             border-color: var(--primary-color);
             box-shadow: 0 0 5px rgba(132, 5, 235, 0.5);
         }
+
+        .message-content {
+            max-width: 80%;
+        }
+
+        .chat-messages {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .message-meta {
+            font-size: 0.8rem;
+            margin-top: 0.25rem;
+        }
+
     </style>
     {% endblock %}
 
@@ -50,7 +65,7 @@
                         <div class="mb-3">
                             <div class="d-flex justify-content-between align-items-start">
                                 <div class="message-content {% if user == comment.user %}ms-auto{% endif %}">
-                                    <div class="card {% if user == comment.user %}bg-primary text-white{% else %}bg-light{% endif %}" 
+                                    <div class="card {% if user == comment.user %}bg-primary text-white{% else %} bg-transparent{% endif %}" 
                                          style="max-width: 80%;">
                                         <div class="card-body">
                                             <p class="card-text mb-1">{{ comment.content }}</p>

@@ -37,10 +37,15 @@
                                     {% endif %}
                                 </div>
                                 <div class="upload-btn-wrapper">
-                                    <button class="btn btn-outline-primary btn-sm" type="button">
+                                    <button class="btn btn-outline-primary btn-sm mb-2" type="button" onclick="document.getElementById('avatarInput').click()">
                                         Change Profile Picture
                                     </button>
-                                    <input type="file" name="avatar" id="avatarInput" accept="image/*">
+                                    <input type="file" name="avatar" id="avatarInput" accept="image/*" style="display: none;">
+                                    <button class="btn btn-outline-danger btn-sm ms-2" type="button" id="removeAvatarBtn">
+                                        <i class="bi bi-x-circle"></i>
+                                        Remove
+                                    </button>
+                                    <input type="hidden" name="remove_avatar" id="removeAvatarInput" value="false">
                                 </div>
                             </div>
                         </div>
@@ -145,6 +150,9 @@
     document.addEventListener('DOMContentLoaded', function() {
         const avatarInput = document.getElementById('avatarInput');
         const avatarPreview = document.getElementById('avatarPreview');
+        const removePictureBtn = document.getElementById('removeAvatarBtn');
+        // const profilePicture = document.getElementById('profilePicture');
+        const removeAvatarInput = document.getElementById('removeAvatarInput');
 
         avatarInput.addEventListener('change', function(e) {
             if (this.files && this.files[0]) {
@@ -156,6 +164,17 @@
                 
                 reader.readAsDataURL(this.files[0]);
             }
+        });
+
+        removePictureBtn.addEventListener('click', function(e) {
+            console.log('Remove button clicked'); 
+            e.preventDefault();
+            // Clear the file input
+            avatarInput.value = '';
+            // Set the profile picture to the default SVG image
+            avatarPreview.src = '/static/media/avatars/default.svg'; // Adjust the path as needed
+            // Set the hidden input to indicate removal
+            removeAvatarInput.value = 'true';
         });
     });
     </script>

@@ -40,7 +40,7 @@
                     {{ comment.body }}
                 </div>
 
-                {% if user == comment.user %}
+                {% if request.user == comment.user %}
                 <div class="activity-actions">
                     <a href="{% url 'delete-comment' comment.id %}" 
                     class="btn btn-link text-danger p-0" style="text-decoration: none;" 

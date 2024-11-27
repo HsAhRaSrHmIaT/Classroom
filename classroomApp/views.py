@@ -63,7 +63,7 @@ def registerPage(request):
                 send_mail(
                     'Email Verification Code',
                     f'Your verification code is {verification_code}',
-                    'hsahrasrhmiat2.04@gmail.com',
+                    'testingmyapp99times@gmail.com',
                     [form.cleaned_data.get('email')],
                     fail_silently=False,
                 )
@@ -256,6 +256,9 @@ def updateUser(request):
         profile_form = ProfileUpdateForm(request.POST, request.FILES, instance=profile)
         
         if user_form.is_valid() and profile_form.is_valid():
+            if request.POST.get('remove_avatar') == 'true':
+                profile.avatar.delete(save=False)  # Remove the avatar file
+                profile.avatar = None
             user_form.save()
             profile_form.save()
             messages.success(request, 'Your profile has been updated!')

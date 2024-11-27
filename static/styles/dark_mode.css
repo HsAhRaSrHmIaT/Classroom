@@ -23,7 +23,7 @@
     /* Feedback Colors */
     --dark-success: #4CAF50;            /* Green for success states */
     --dark-error: #F44336;              /* Red for error states */
-    --dark-warning: #FF9800;            /* Orange for warnings */
+    --dark-warning: #FF9800;           /* Orange for warnings */
 }
 
 /* Optional: Dark Mode Transition */
@@ -466,4 +466,10 @@ body.dark-mode .card-footer {
 body.dark-mode .card-header {
     background-color: var(--dark-surface-lighter);
     border-bottom-color: var(--dark-border);
+}
+
+body.dark-mode .delete-container {
+    background-color: var(--dark-surface);
+    box-shadow: 0 2px 5px #8405eb;
+    color: var(--dark-text-primary);
 }

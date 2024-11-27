@@ -1,35 +1,61 @@
-# classroomApp/templatetags/custom_filters.py
-
-from django import template # type: ignore
+from django import template
 from datetime import timedelta, datetime
-from django.utils import timezone # type: ignore
-from django.utils.timesince import timesince # type: ignore
+from django.utils import timezone
+from django.utils.timesince import timesince
 
 register = template.Library()
+
 @register.filter
 def human_readable_date(value):
-    # Check if the value is a string and convert it to a datetime object
+    """
+    Custom template filter to generate human-readable datetime representation.
+    
+    Args:
+        value (datetime or str): Input datetime object or ISO-formatted datetime string
+    
+    Returns:
+        str: Humanized time representation
+    
+    Key Considerations:
+    - Handles timezone-aware and naive datetime objects
+    - Provides contextual time representations
+    - Implements granular time difference categorization
+    """
+    # Type and Timezone Normalization
     if isinstance(value, str):
         try:
             value = datetime.fromisoformat(value)
         except ValueError:
-            return value  # Return the original value if it cannot be parsed
+            return value
 
-    # Ensure the datetime object is timezone-aware
+    # Timezone Awareness Handling
     if not timezone.is_aware(value):
         value = timezone.make_aware(value)
-
-    # Convert the datetime object to the current timezone
+    
     value = timezone.localtime(value)
-    # Check if the time difference is more than 24 hours
-    time_difference = timezone.now() - value
-    if time_difference.days > 1:
+    current_time = timezone.now()
+    time_difference = current_time - value
+
+    # Comprehensive Time Representation Logic
+    if time_difference.days > 7:
+        # For dates older than a week, return formatted date
+        return value.strftime('%b %d')
+    elif time_difference.days > 1:
+        # For dates within last week, return day of week
         return value.strftime('%a')
     elif time_difference.days == 1:
-        return "yesterday"
-    elif time_difference.seconds >= 3600:
-        return "today at " + value.astimezone(timezone.get_current_timezone()).strftime('%I:%M %p')
-    elif time_difference.seconds >= 60:
-        return str(time_difference.seconds // 60) + " minutes ago"
-    else:
-        return "just now"
+        return "Yesterday"
+    elif time_difference.days == 0:
+        if time_difference.seconds >= 3600:
+            # Hours ago
+            hours = time_difference.seconds // 3600
+            return f"{hours} hour{'s' if hours > 1 else ''} ago"
+        elif time_difference.seconds >= 60:
+            # Minutes ago
+            minutes = time_difference.seconds // 60
+            return f"{minutes} minute{'s' if minutes > 1 else ''} ago"
+        else:
+            # Recent moments
+            return "Just now"
+    
+    return value.strftime('%b %d')
