@@ -22,4 +22,5 @@ from classroomApp import views
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("", include("classroomApp.urls")),
+    path("api/", include("classroomApp.api.urls")),
 ]
