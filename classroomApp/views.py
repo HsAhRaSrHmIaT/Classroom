@@ -279,3 +279,28 @@ def deleteProfile(request):
         user.delete()
         return redirect("/login")
     return render(request, "base/delete.html", context={'user': user})
+
+def forgotPassword(request):
+    if request.method == "POST":
+        email = request.POST.get('email')
+        username = request.POST.get('username')
+
+        user = User.objects.filter(email=email, username=username)
+        if user.exists():
+            user = user[0]
+            new_password = ''.join(random.choices('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()', k=8))  # Generate a new random 8-character strong password
+            user.set_password(new_password)
+            user.save()
+            send_mail(
+            'Password Reset',
+            f'Your new password is {new_password}',
+            'testingmyapp99times@gmail.com',
+            [email],
+            fail_silently=False,
+            )
+            messages.success(request, "A new password has been sent to your email")
+            return redirect("login")
+        else:
+            messages.error(request, "User does not exist")
+            messages.error(request, "User does not exist")
+    return render(request, "base/forgot_password.html")

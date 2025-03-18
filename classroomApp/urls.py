@@ -18,4 +18,5 @@ urlpatterns = [
     path("profile/<str:pk>", views.userProfile, name="profile"),
     path("update-user/", views.updateUser, name="update-user"),
     path("delete-profile/", views.deleteProfile, name="delete-profile"),
+    path('forgot-password/', views.forgotPassword, name="forgot-password"),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
