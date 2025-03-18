@@ -66,3 +66,141 @@
     font-size: 24px;
     font-weight: 800;
 }
+
+:root {
+    --primary-color: #8405eb;
+    --navbar-height: 65px;
+  }
+
+  body {
+    padding-top: var(--navbar-height);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .navbar {
+    background-color: #ffffff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    padding: 0.75rem 1rem;
+    height: var(--navbar-height);
+  }
+
+  .navbar-brand {
+    font-family: "Times New Roman", Times, serif;
+    color: #000 !important;
+    font-size: 1.5rem;
+    font-weight: 800;
+    text-decoration: none;
+  }
+
+  .navbar-brand span {
+    font-style: italic;
+    color: var(--primary-color);
+  }
+
+  .search-form {
+    flex-grow: 0.4;
+    max-width: 500px;
+    position: relative;
+  }
+
+  .search-form .form-control:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 5px rgba(132, 5, 235, 0.5);
+  }
+
+  .search-form .form-control {
+    border-radius: 20px;
+    padding-left: 2.5rem;
+    transition: all 0.2s ease;
+  }
+
+  .search-icon {
+    position: absolute;
+    left: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #6c757d;
+  }
+
+  .form-control:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 0.2rem rgba(132, 5, 235, 0.25);
+  }
+
+  .nav-link {
+    color: #495057 !important;
+    transition: color 0.2s ease;
+    padding: 0.5rem 1rem !important;
+    font-weight: 500;
+  }
+
+  .nav-link:hover {
+    color: var(--primary-color) !important;
+  }
+
+  .nav-divider {
+    color: #dee2e6;
+    margin: 0 0.5rem;
+  }
+
+  .dropdown-menu {
+    border-radius: 0.5rem;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+  }
+
+  .dropdown-item {
+    padding: 0.5rem 1.5rem;
+    transition: all 0.2s ease;
+  }
+
+  .dropdown-item:hover {
+    background-color: rgba(132, 5, 235, 0.1);
+    color: var(--primary-color);
+  }
+
+  .avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 0.5rem;
+  }
+
+  .dark-mode-toggle {
+    border: none;
+    background: none;
+    padding: 0.5rem;
+    cursor: pointer;
+    transition: color 0.2s ease;
+  }
+
+  .dark-mode-toggle:hover {
+    color: var(--primary-color);
+  }
+
+  @media (max-width: 768px) {
+    .search-form {
+      flex-grow: 1;
+      margin: 1rem 0;
+      max-width: 100%;
+    }
+
+    .navbar-nav {
+      margin-top: 1rem;
+    }
+
+    .dropdown-menu {
+      border: none;
+      box-shadow: none;
+      padding: 0;
+      margin: 0;
+    }
+  }

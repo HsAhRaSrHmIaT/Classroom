@@ -1,6 +1,12 @@
 {% extends 'main.html' %}
+{% load static %}
 
 {% block content %}
+
+    {% block css %}
+    <link rel="stylesheet" href="{% static 'styles/topics.css' %}" type="text/css"/>
+    {% endblock %}
+
 <div class="container py-4">
     <div class="card">
         <div class="card-header d-flex justify-content-between align-items-center">
@@ -31,31 +37,4 @@
     </div>
 </div>
 
-<style>
-    .badge.bg-primary {
-        background-color: #8405eb !important;
-    }
-    
-    .btn-outline-primary {
-        color: #8405eb;
-        border-color: #8405eb;
-    }
-    
-    .btn-outline-primary:hover {
-        background-color: #8405eb;
-        border-color: #8405eb;
-        color: white;
-    }
-
-    .btn-outline-primary:active {
-        background-color: #6d03c2 !important;
-        border-color: #6d03c2 !important;  
-    }
-
-    .search-input:focus {
-        outline: none;
-        border-color: var(--primary-color);
-        box-shadow: 0 0 5px rgba(132, 5, 235, 0.5);
-    }
-</style>
 {% endblock %}

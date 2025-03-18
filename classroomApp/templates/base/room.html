@@ -4,47 +4,7 @@
 
 {% block content %}
     {% block css %}
-    <!-- <link rel="stylesheet" href="{% static 'styles/room.css' %}" type="text/css"/> -->
-    <style>
-        .bg-primary {
-            background-color: #8405eb !important;
-        }
-
-        .text-primary {
-            color: #8405eb !important;
-        }
-
-        .btn-primary {
-            background-color: #8405eb !important;
-            border-color: #8405eb !important;
-        }
-
-        .btn-primary:hover {
-            background-color: #6a03b6 !important;
-            border-color: #6a03b6 !important;
-        }
-
-        .message-form .input-group input:focus {
-            outline: none !important;
-            border-color: var(--primary-color);
-            box-shadow: 0 0 5px rgba(132, 5, 235, 0.5);
-        }
-
-        .message-content {
-            max-width: 80%;
-        }
-
-        .chat-messages {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .message-meta {
-            font-size: 0.8rem;
-            margin-top: 0.25rem;
-        }
-
-    </style>
+    <link rel="stylesheet" href="{% static 'styles/room.css' %}" type="text/css"/>
     {% endblock %}
 
 <div class="container-fluid py-4">
@@ -135,12 +95,7 @@
 </div>
 
 {% block js %}
-<script>
-    document.addEventListener('DOMContentLoaded', (event) => {
-        const chatMessagesContainer = document.getElementById('chat-messages-container');
-        chatMessagesContainer.scrollTop = chatMessagesContainer.scrollHeight;
-    });
-</script>
+<script src="{% static 'scripts/room.js' %}"></script>
 {% endblock %}
 
 {% endblock %}
