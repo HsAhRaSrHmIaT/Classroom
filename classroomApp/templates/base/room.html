@@ -59,7 +59,7 @@
                 </div>
 
                 <!-- Chat Messages -->
-                <div class="card-body" style="height: 70vh; overflow-y: auto;">
+                <div class="card-body" id="chat-messages-container" style="height: 70vh; overflow-y: auto;">
                     <div class="chat-messages">
                         {% for comment in comments %}
                         <div class="mb-3">
@@ -133,5 +133,14 @@
         </div>
     </div>
 </div>
+
+{% block js %}
+<script>
+    document.addEventListener('DOMContentLoaded', (event) => {
+        const chatMessagesContainer = document.getElementById('chat-messages-container');
+        chatMessagesContainer.scrollTop = chatMessagesContainer.scrollHeight;
+    });
+</script>
+{% endblock %}
 
 {% endblock %}
