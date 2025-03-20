@@ -10,6 +10,7 @@ db.sqlite3-journal
 # Virtual Environment
 .venv/
 myenv/
+.env
 
 # IDE specific files
 .idea/
